@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Clients from "./pages/Clients";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import KYCPage from "./pages/regulatory/KYCPage";
+import PiecesJustificativesPage from "./pages/regulatory/PiecesJustificativesPage";
 import { useAuth } from "@/hooks/useAuth";
 
 const queryClient = new QueryClient();
@@ -54,6 +56,8 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/clients" element={<Clients />} />
+            <Route path="/clients/:clientId/kyc" element={<KYCPage />} />
+            <Route path="/clients/:clientId/pieces-justificatives" element={<PiecesJustificativesPage />} />
             <Route path="/documents" element={<div>Documents - En développement</div>} />
             <Route path="/compliance" element={<div>Conformité - En développement</div>} />
             <Route path="/vault" element={<div>Coffre-fort - En développement</div>} />

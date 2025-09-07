@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Search, Edit, Trash2, FileText, Phone, Mail } from "lucide-react";
+import { Plus, Search, Edit, Trash2, FileText, Phone, Mail, User, Shield, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,15 +8,18 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useClients } from "@/hooks/useClients";
 import { Client } from "@/types/crm";
+import { useNavigate } from "react-router-dom";
 
 export default function Clients() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
   const { clients, loading, createClient, updateClient, deleteClient } = useClients();
 
   const [formData, setFormData] = useState({
@@ -271,12 +274,41 @@ export default function Clients() {
               )}
 
               <div className="flex justify-between items-center pt-2">
-                <Button variant="outline" size="sm" className="gap-1">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="gap-1"
+                  onClick={() => navigate(`/clients/${client.id}`)}
+                >
                   <FileText className="h-3 w-3" />
                   Dossier
                 </Button>
 
                 <div className="flex gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate(`/clients/${client.id}/kyc`)}
+                    title="KYC"
+                  >
+                    <User className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate(`/clients/${client.id}/pieces-justificatives`)}
+                    title="Pièces justificatives"
+                  >
+                    <Shield className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate(`/clients/${client.id}/profil-investisseur`)}
+                    title="Profil investisseur"
+                  >
+                    <TrendingUp className="h-3 w-3" />
+                  </Button>
                   <Button
                     variant="ghost"
                     size="sm"
